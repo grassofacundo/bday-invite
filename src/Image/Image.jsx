@@ -7,12 +7,12 @@ function Image({ src, currentPic, index }) {
     return (
         <>
             <img
-                src={src}
+                src={`${src}.jpg`}
                 alt="Alguna imagen"
                 style={{display: !load && currentPic === index ? "block" : "none"}}
             />
             <img
-                src={`${src}-hd`}
+                src={`${src}-hd.jpg`}
                 alt="Alguna imagen hd"
                 onLoad={() => setLoad(true)}
                 style={{display: load && currentPic === index ? "block" : "none"}}

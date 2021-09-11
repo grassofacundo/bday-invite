@@ -4,13 +4,13 @@ import Description from './Description/Description';
 import Image from './Image/Image';
 
 const photos = [
-    `${process.env.PUBLIC_URL}/assets/img1-hd.jpg`,
-    `${process.env.PUBLIC_URL}/assets/img2-hd.jpg`,
-    `${process.env.PUBLIC_URL}/assets/img3-hd.jpg`,
-    `${process.env.PUBLIC_URL}/assets/img4-hd.jpg`,
-    `${process.env.PUBLIC_URL}/assets/img5-hd.jpg`,
-    `${process.env.PUBLIC_URL}/assets/img6-hd.jpg`,
-    `${process.env.PUBLIC_URL}/assets/img7-hd.jpg`,
+    `${process.env.PUBLIC_URL}/assets/img1`,
+    `${process.env.PUBLIC_URL}/assets/img2`,
+    `${process.env.PUBLIC_URL}/assets/img3`,
+    `${process.env.PUBLIC_URL}/assets/img4`,
+    `${process.env.PUBLIC_URL}/assets/img5`,
+    `${process.env.PUBLIC_URL}/assets/img6`,
+    `${process.env.PUBLIC_URL}/assets/img7`,
 ]
 
 function App() {
