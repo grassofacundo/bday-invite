@@ -1,0 +1,50 @@
+.mainWrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.imageCarousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 70%;
+    width: 100%;
+    max-width: 500px;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        display: none;
+    }
+}
+
+.buttonContainer {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    bottom: 10px;
+
+    button {
+        border: 0;
+        width: 100px;
+        height: 80px;
+        background-color: #ad893e;
+        color: white;
+        font-family: 'Nunito', serif;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 0 50px 50px 0;
+
+        + button {
+            border-radius: 50px 0 0 50px;
+        }
+    }
+}

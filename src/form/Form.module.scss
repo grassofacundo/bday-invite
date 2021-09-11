@@ -1,0 +1,38 @@
+.formWrapper {
+    position: absolute;
+    top: 20px;
+    bottom: 20px;
+    right: 0;
+    left: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+
+    padding-top: 10%;
+    background-color: #211e17;
+    z-index: 1;
+    color: white;
+    font-family: 'Nunito', serif;
+    border: {
+        color: black;
+        style: solid;
+        width: 2px;
+    }
+
+    div {
+        width: 70%;
+        padding-bottom: 5px;
+
+        label:first-of-type {
+            display: block;
+            text-align: initial;
+            margin-bottom: 5px;
+        }
+
+        input[type=radio]:first-of-type {
+            margin-right: 30px;
+        }
+    }
+}
