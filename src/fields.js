@@ -5,6 +5,7 @@ export const formFields = [
     ]},
     {type: "text", id: "name", label: "Nombre", placeholder: "Ej. Juan"},
     {type: "text", id: "lastName", label: "Apellido", placeholder: "Ej. Perez"},
+    {type: "number", id: "dni", label: "DNI", placeholder: "-"},
     {type: "number", id: "extrasAdult", label: "Adultes extras que lleves", placeholder: "-"},
     {type: "number", id: "extrasKid", label: "Niñes extras que lleves", placeholder: "-"},
 ];

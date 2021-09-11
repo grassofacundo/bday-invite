@@ -19,11 +19,13 @@ export class FirebaseService
         const db = getFirestore();
 
         try {
-            await setDoc(doc(db, "invitedUsers", `${form.name}-${form.lastName}`), {
+            await setDoc(doc(db, "invitedUsers", form.dni), {
               firstName: form.name,
               last: form.lastName,
+              dni: form.dni,
               isVegeta: form.vegeta === "vegetaYes",
-              extras: form.extras
+              extrasAdult: form.extrasAdult,
+              extrasKid: form.extrasKid
             });
             return true;
           } catch (e) {
