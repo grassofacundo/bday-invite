@@ -25,6 +25,8 @@ export const guests = [
     "Papá",
     "Celi",
     "Betty",
+    "Mabel",
+    "Hugo",
     "Nico Fina",
     "Lisi Fina",
     "Juli Fina",
