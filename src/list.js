@@ -21,6 +21,7 @@ export const guests = [
     "Seba Maldonado",
     "Ceci Saavedra",
     "Lola Vicente",
+    "Delfi",
     "Agus 💗",
     "Mamá",
     "Papá",
