@@ -6,6 +6,7 @@ import InputTel from './blocks/InputTel';
 import InputPassword from './blocks/InputPassword';
 import InputMail from './blocks/InputMail';
 import InputRadio from './blocks/InputRadio';
+import { guests } from "../list";
 import styles from "./Form.module.scss";
 
 const Form = ({ fields, onSubmit }) => {
@@ -80,6 +81,10 @@ const Form = ({ fields, onSubmit }) => {
                 }
             })}
             <input type="submit" value="Submit" disabled={!submitEnabled}/>
+            <h2>Antes de poner tus extras, mirate la lista de invitades</h2>
+            <ul>
+                {guests.map((guest, i) => <li key={i}>{guest}</li>)}
+            </ul>
         </form>
     )
 }
