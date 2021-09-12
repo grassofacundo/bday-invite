@@ -12,6 +12,7 @@ import styles from "./Form.module.scss";
 const Form = ({ fields, onSubmit }) => {
     const [formBody, setFormBody] = useState({});
     const [submitEnabled, setSubmitEnabled] = useState(false);
+    const [showList, setShowList] = useState(false);
 
     useEffect(() => {
         let inputFields = fields.filter(field => field.type !== "title");
@@ -81,10 +82,10 @@ const Form = ({ fields, onSubmit }) => {
                 }
             })}
             <input type="submit" value="Submit" disabled={!submitEnabled}/>
-            <h2>Antes de poner tus extras, mirate la lista de invitades</h2>
-            <ul>
+            <h2>Antes de poner tus extras, <b onClick={() => setShowList(!showList)}>mirate la lista de invitades</b></h2>
+            {showList && <ul>
                 {guests.map((guest, i) => <li key={i}>{guest}</li>)}
-            </ul>
+            </ul>}
         </form>
     )
 }
