@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Admin from './Admin/Admin';
 import styles from './App.module.scss';
 import Description from './Description/Description';
 import Image from './Image/Image';
@@ -15,6 +16,8 @@ const photos = [
 
 function App() {
     const [currentPic, setCurrentPic] = useState(0);
+    const [adminOpen, setAdminOpen] = useState(false);
+    const keysPressed = useRef({ctr: false, d: false});
 
     function changePic(direction) {
         const isNext = direction > 0;
@@ -28,16 +31,37 @@ function App() {
     const extrasAdult = localStorage.getItem('extrasAdult');
     const extrasKid = localStorage.getItem('extrasKid');
 
+    useEffect(() => {
+        document.addEventListener('keydown', (event) => {
+            event.preventDefault();
+            if (event.code === "ControlLeft") keysPressed.current.ctr = true;
+            if (event.code === "KeyD") keysPressed.current.d = true;
+            if (keysPressed.current.ctr && keysPressed.current.d) {
+                setAdminOpen(true);
+            } else {
+                setAdminOpen(false);
+            };
+        });
+        document.addEventListener('keyup', () => {
+            keysPressed.current.ctr = false;
+            keysPressed.current.d = false;
+        });
+
+    }, [])
+
     return (
         <div className={styles.mainWrapper}>
-            <Description index={currentPic} userInfoProp={{name, extrasAdult, extrasKid}}/>
-            <div className={styles.imageCarousel}>
-                {photos.map((photo, i) => <Image key={i} src={photo} currentPic={currentPic} index={i}/>)}
-                <div className={styles.buttonContainer}>
-                    <button onClick={() => changePic(-1)}>Anterior</button>
-                    <button onClick={() => changePic(+1)}>Siguiente</button>
+            {!adminOpen && <>
+                <Description index={currentPic} userInfoProp={{name, extrasAdult, extrasKid}}/>
+                <div className={styles.imageCarousel}>
+                    {photos.map((photo, i) => <Image key={i} src={photo} currentPic={currentPic} index={i}/>)}
+                    <div className={styles.buttonContainer}>
+                        <button onClick={() => changePic(-1)}>Anterior</button>
+                        <button onClick={() => changePic(+1)}>Siguiente</button>
+                    </div>
                 </div>
-            </div>
+            </>}
+            {adminOpen && <Admin closeAdmin={() => setAdminOpen(false)} />}
         </div>
     );
 }

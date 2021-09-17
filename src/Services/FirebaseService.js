@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, setDoc } from "firebase/firestore"
+import { getFirestore, doc, setDoc, getDocs, collection } from "firebase/firestore"
 
 export class FirebaseService
 {
@@ -33,5 +33,11 @@ export class FirebaseService
             return false;
           }
     }
-    
+
+    static async getInvitedUsers() {
+        const db = getFirestore();
+
+        const querySnapshot = await getDocs(collection(db, "invitedUsers"));
+        return querySnapshot;
+    }
 }
