@@ -1,6 +1,8 @@
-html, body, #root {
+html,
+body,
+#root {
     height: 100%;
     width: 100%;
     margin: 0;
-    background-color: #71500b;
+    background-color: #7b0046;
 }

@@ -9,27 +9,44 @@ const Admin = ({ closeAdmin }) => {
         async function getInvitedUsers() {
             const invitedUsers = await FirebaseService.getInvitedUsers();
             const invited = [];
-            invitedUsers.forEach(u => invited.push(u.data()));
+            invitedUsers.forEach((u) => invited.push(u.data()));
             setInvitedUsers(invited);
         }
-      
+
         getInvitedUsers();
-    }, [])
+    }, []);
     return (
         <div className={styles.adminWrapper}>
             <button onClick={closeAdmin}>Close admin</button>
-            {InvitedUsers && InvitedUsers.length > 0 && Object.values(InvitedUsers).map(user => (
-                <ul>
-                    <li>{user.dni}</li>
-                    <li>{user.extrasAdult}</li>
-                    <li>{user.extrasKid}</li>
-                    <li>{user.firstName}</li>
-                    <li>{user.last}</li>
-                    <li>{user.isVegeta}</li>
-                </ul>
-            ))}
+            {!InvitedUsers && <p>Cargando...</p>}
+            {InvitedUsers &&
+                InvitedUsers.length > 0 &&
+                Object.values(InvitedUsers).map((user) => (
+                    <div className={styles.guestBlock}>
+                        <h3>{`${user.firstName} ${user.last}`}</h3>
+                        {user.isVegano && <p>Es veganx</p>}
+                        {user.isVegetariano && <p>Es vegetarianx</p>}
+                        {user.extras.length > 0 && (
+                            <ul>
+                                {user.extras.map((extra) => (
+                                    <li>{`${extra.name} ${
+                                        extra.lastName
+                                    }. Veganx: ${
+                                        extra.vegeta === "vegetarNo"
+                                            ? "Sí"
+                                            : "No"
+                                    }, Vegetarianx: ${
+                                        extra.vegetar === "vegetarYes"
+                                            ? "Sí"
+                                            : "No"
+                                    }`}</li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                ))}
         </div>
-    )
-}
+    );
+};
 
 export default Admin;

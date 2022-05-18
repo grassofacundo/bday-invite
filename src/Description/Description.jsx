@@ -3,91 +3,163 @@ import styles from "./Description.module.scss";
 import { formFields } from "../fields";
 import { useState } from "react";
 import { FirebaseService } from "../Services/FirebaseService";
+import GuestList from "../guestList/GuestList";
 
 function Description({ index, userInfoProp }) {
     const [showForm, setShowForm] = useState(false);
+    const [showList, setShowList] = useState(false);
     const [userInfo, setUserInfo] = useState(userInfoProp);
 
     function getDescription(index) {
-        switch(index) {
-            case 0: return  <p>Esta es la invitación al cumple de 30 de Facu</p>;
-            case 1: return <p>Va a ser <b>el domingo 26/9</b> a las 12 del <b>mediodía</b> hasta la tarde, hay cafecito con mesa dulce y todo</p>;
-            case 2: return <p>Se festeja en el club <a href="https://goo.gl/maps/iDkuUCRYv9CXPGBU7" target="_blank" rel="noreferrer">Bochas América</a> (Biedma 517, entre Rosas y Primero de Mayo)</p>;
-            case 3: return <p>Comida hay mucha. <b>Si sos vegeta, avisame</b></p>;
-            case 4: return <p>Bebida sólo hay <b>coca y cerveza Santa Fe</b> en lata. Si querés otra cosa, la comprás ahí, hay una cantina</p>;
-            case 5: return <p>Si te invito, caete nomás, invita el Facu. Si llevás a alguien, sale <b>$500 por adulte extra</b></p>;
-            case 6: return !Object.values(userInfo).every(x => x !== null && x !== undefined)
-                ? <p>Para anotarte, hacé <span onClick={() => setShowForm(true)}>click acá</span>! No te cuelgues en confirmar! <b>Fecha límite para anotarse 22/9</b></p>
-                : getPostMessage(userInfo);
-            default: return "Venite!";
+        switch (index) {
+            case 0:
+                return (
+                    <>
+                        <p>
+                            ¡Vení a festejar conmigo <br /> <b>Mis 30!</b>
+                        </p>
+                    </>
+                );
+            case 1:
+                return (
+                    <p>
+                        <b>¿Cuándo?</b> <br /> Sábado 11/6 a las 21:30 hs
+                    </p>
+                );
+            case 2:
+                return (
+                    <p>
+                        <b>¿Dónde?</b>
+                        <br />
+                        Club{" "}
+                        <a
+                            href="https://goo.gl/maps/iDkuUCRYv9CXPGBU7"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            Bochas América
+                        </a>{" "}
+                        - Biedma 517 <br />(
+                        <small>entre Rosas y Primero de Mayo</small>)
+                    </p>
+                );
+            case 3:
+                return (
+                    <p>
+                        <b>¿Comida?</b> <br />
+                        Mucha! más bebida para la cena, postrecito y cositas
+                        dulces 😋
+                    </p>
+                );
+            case 4:
+                return (
+                    <p>
+                        Si te querés embriagar,
+                        <br /> podés comprar más bebida en el lugar.
+                    </p>
+                );
+            case 5:
+                return (
+                    <p>
+                        Si estás{" "}
+                        <span
+                            onClick={() => setShowList((showList) => !showList)}
+                        >
+                            en esta lista
+                        </span>{" "}
+                        te invito yo 😉. Amigues, parejas y acompañantes son
+                        bienvenides pagando su tarjeta (
+                        <small>$1500 por adulte</small>)
+                    </p>
+                );
+            case 6:
+                return !Object.values(userInfo).every(
+                    (x) => x !== null && x !== undefined
+                ) ? (
+                    <p>
+                        Para anotarte, hacé{" "}
+                        <span onClick={() => setShowForm(true)}>click acá</span>
+                        <br />
+                        Fecha límite para anotarse <b>lunes 6/6</b>
+                    </p>
+                ) : (
+                    getPostMessage(userInfo)
+                );
+            default:
+                return "Venite!";
         }
     }
 
     function getPostMessage(userInfo) {
-        let extrasAdultTemp = 0;
-        let extrasKidTemp = 0;
+        let extras = 0;
         try {
-            extrasAdultTemp = Number(userInfo.extrasAdult);
-        } catch(e) {
+            extras = Number(userInfo.extras);
+        } catch (e) {
             console.error(e);
         }
-        try {
-            extrasKidTemp = Number(userInfo.extrasKid);
-        } catch(e) {
-            console.error(e);
-        }
-        const money = extrasAdultTemp * 500;
-        const firstPart = `Te espero ${userInfo.name}!`;
-        const extras = extrasAdultTemp + extrasKidTemp;
-        const secondPart = extras > 0
-            ? ` a vos y a ${extras > 1 ? "tus" : "tu"}${extras > 1 ? " " + extras + " " : " "}${extras > 1 ? "extras" : "extra"}! ($${money}`
-            : "";
-        return <p>{firstPart + secondPart}</p>;
+        //const money = extras * 1500;
+        return (
+            <p>{extras > 0 ? "Lxs espero!" : `Te espero ${userInfo.name}!`}</p>
+        );
     }
 
     async function onSubmit(form) {
-        const deadline = new Date('September 22, 2021');
+        const deadline = new Date("June 06, 2022");
         if (Date() >= deadline) {
             alert("Ya venció el plazo para anotarse 😭");
-            return;
+            window.location.reload();
         }
         const insertSuccess = await FirebaseService.insertInvite(form);
-        let extrasAdultTemp = 0;
-        let extrasKidTemp = 0;
-        try {
-            extrasAdultTemp = Number(form.extrasAdult);
-        } catch(e) {
-            console.error(e);
-        }
-        try {
-            extrasKidTemp = Number(form.extrasKid);
-        } catch(e) {
-            console.error(e);
-        }
+
         if (!insertSuccess) {
-            alert("Ups, algo falló. Tratá de completar el formulario de vuelta o contactate conmigo directamente");
+            alert(
+                "Ups, algo falló. Tratá de completar el formulario de vuelta o contactate conmigo directamente"
+            );
+            window.location.reload();
         } else {
-            localStorage.setItem('userName', form.name);
-            localStorage.setItem('extrasAdult', extrasAdultTemp);
-            localStorage.setItem('extrasKid', extrasKidTemp);
-            const name = localStorage.getItem('userName');
-            const extrasAdult = localStorage.getItem('extrasAdult');
-            const extrasKid = localStorage.getItem('extrasKid');
-            setUserInfo({name, extrasAdult, extrasKid});
-            setShowForm(false)
-        };
+            localStorage.setItem("userName", form.name);
+            localStorage.setItem("extras", form.extras.length);
+
+            const name = localStorage.getItem("userName");
+            const extras = localStorage.getItem("extras");
+            setUserInfo({ name, extras });
+            setShowForm(false);
+        }
     }
 
     return (
         <div className={styles.descriptionWrapper}>
-            <h1>Facumple 30</h1>
             {getDescription(index)}
-            {showForm && <>
-                <button className={styles.closeButton} onClick={() => setShowForm(false)}>X</button>
-                <Form fields={formFields} onSubmit={onSubmit} />
-            </>}
+            {showForm && (
+                <>
+                    <button
+                        className={styles.closeButton}
+                        onClick={() => {
+                            setShowForm(false);
+                            setShowList(false);
+                        }}
+                    >
+                        X
+                    </button>
+                    <Form fields={formFields} onSubmit={onSubmit} />
+                </>
+            )}
+            {showList && (
+                <>
+                    <button
+                        className={styles.closeButton}
+                        onClick={() => {
+                            setShowForm(false);
+                            setShowList(false);
+                        }}
+                    >
+                        X
+                    </button>
+                    <GuestList />
+                </>
+            )}
         </div>
-    )
+    );
 }
 
 export default Description;

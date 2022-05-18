@@ -1,9 +1,8 @@
-.adminWrapper {
+.guestListContainer {
     position: absolute;
     inset: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 5px;
     align-items: center;
     padding: 10px 0;
@@ -17,9 +16,5 @@
         width: 2px;
     }
     overflow: auto;
-
-    .guestBlock {
-        border: 1px white solid;
-        padding: 10px;
-    }
+    list-style-type: none;
 }

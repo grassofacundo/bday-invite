@@ -1,37 +1,35 @@
 .formWrapper {
     position: absolute;
-    top: 20px;
-    bottom: 20px;
-    right: 0;
-    left: 0;
-
+    inset: 0;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 5px;
     align-items: center;
-
-    padding-top: 10%;
-    background-color: #211e17;
+    padding: 10px 0;
+    background-color: #1f1834;
     z-index: 1;
     color: white;
-    font-family: 'Nunito', serif;
+    font-family: "Nunito", serif;
     border: {
         color: black;
         style: solid;
         width: 2px;
     }
+    overflow: auto;
 
     div {
-        width: 70%;
+        width: 75%;
         padding-bottom: 5px;
 
         label:first-of-type {
-            display: block;
+            display: inline-block;
             text-align: initial;
             margin-bottom: 5px;
+            margin-right: 5px;
         }
 
-        input[type=radio]:first-of-type {
+        input[type="radio"]:first-of-type {
             margin-right: 30px;
         }
     }
@@ -47,9 +45,14 @@
         }
     }
 
-    ul {
-        margin-top: 0;
-        overflow: auto;
-        padding-right: 10px;
+    button {
+        margin-bottom: 15px;
     }
+}
+
+.extraGuestForm {
+    transform: scale(0.9);
+    background-color: #3a3252;
+    padding: 10px;
+    border-radius: 10px;
 }

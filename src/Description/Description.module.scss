@@ -1,24 +1,36 @@
 .descriptionWrapper {
-    margin: 0 10px;
-    text-align: center;
+    --wrapper-margin: 10px;
+    --wrapper-border: 6px;
 
-    h1, p {
+    display: flex;
+    align-items: center;
+    height: 110px;
+    width: calc(100% - var(--wrapper-margin) * 2 - var(--wrapper-border) * 2);
+    margin: var(--wrapper-margin);
+    border: var(--wrapper-border) solid #c10fc1;
+
+    h1,
+    p {
         color: white;
-        font-family: 'Nunito', serif;
+        font-family: "Nunito", serif;
     }
 
     p {
-        height: 60px;
+        text-align: center;
         overflow: auto;
+        margin: 0 10px;
+        width: 100%;
+        font-size: 20px;
     }
-    
+
     a {
-        font-weight: 600;
-        color: white;
+        font-weight: 500;
+        color: #f78ff7;
     }
 
     span {
-        font-weight: 600;
+        font-weight: 500;
+        color: #f78ff7;
         text-decoration: underline;
         cursor: pointer;
     }

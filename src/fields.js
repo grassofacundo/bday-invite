@@ -1,11 +1,42 @@
 export const formFields = [
-    {type: "radio", id: "vegeta", label: "Vegeta?", radioElem: [
-        {id: "vegetaYes", name: "vegeta", value: "vegetaYes", label: "Sí"},
-        {id: "vegetaNo", name: "vegeta", value: "vegetaNo", label: "No"}
-    ]},
-    {type: "text", id: "name", label: "Nombre", placeholder: "Ej. Juan"},
-    {type: "text", id: "lastName", label: "Apellido", placeholder: "Ej. Perez"},
-    {type: "number", id: "dni", label: "DNI", placeholder: "-"},
-    {type: "number", id: "extrasAdult", label: "Adultes extras que lleves", placeholder: "-"},
-    {type: "number", id: "extrasKid", label: "Niñes extras que lleves", placeholder: "-"},
+    { type: "text", id: "name", label: "Nombre", placeholder: "Ej. Juan" },
+    {
+        type: "text",
+        id: "lastName",
+        label: "Apellido",
+        placeholder: "Ej. Perez",
+    },
+    {
+        type: "radio",
+        id: "vegeta",
+        label: "Menú vegano?",
+        radioElem: [
+            {
+                id: "vegetaYes",
+                name: "vegeta",
+                value: "vegetaYes",
+                label: "Sí",
+            },
+            { id: "vegetaNo", name: "vegeta", value: "vegetaNo", label: "No" },
+        ],
+    },
+    {
+        type: "radio",
+        id: "vegetar",
+        label: "Menú vegetariano?",
+        radioElem: [
+            {
+                id: "vegetarYes",
+                name: "vegetar",
+                value: "vegetarYes",
+                label: "Sí",
+            },
+            {
+                id: "vegetarNo",
+                name: "vegetar",
+                value: "vegetarNo",
+                label: "No",
+            },
+        ],
+    },
 ];

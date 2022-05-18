@@ -1,93 +1,120 @@
-import React, { useState, useEffect } from 'react';
-import InputText from './blocks/InputText';
-import InputNumber from './blocks/InputNumber';
-import InputDate from './blocks/InputDate';
-import InputTel from './blocks/InputTel';
-import InputPassword from './blocks/InputPassword';
-import InputMail from './blocks/InputMail';
-import InputRadio from './blocks/InputRadio';
-import { guests } from "../list";
+import React, { useState, useEffect } from "react";
 import styles from "./Form.module.scss";
+import FormField from "./formField/FormField";
 
 const Form = ({ fields, onSubmit }) => {
     const [formBody, setFormBody] = useState({});
     const [submitEnabled, setSubmitEnabled] = useState(false);
-    const [showList, setShowList] = useState(false);
+    const [extraFields, setExtraFields] = useState([]);
+
+    function addExtra(e) {
+        e.preventDefault();
+        const extraFieldsClone = JSON.parse(JSON.stringify(extraFields));
+        extraFieldsClone.push(JSON.parse(JSON.stringify(fields)));
+        setExtraFields(extraFieldsClone);
+    }
+
+    function removeExtra(e) {
+        e.preventDefault();
+        const extraFieldsClone = JSON.parse(JSON.stringify(extraFields));
+        extraFieldsClone.pop();
+        setExtraFields(extraFieldsClone);
+    }
+
+    function updateFieldId(field, index) {
+        field.id = field.id + index;
+        if (field.radioElem) {
+            field.radioElem.forEach((radioElem) => {
+                if (!radioElem.id.includes(index)) {
+                    radioElem.id = radioElem.id + index;
+                    radioElem.name = radioElem.name + index;
+                }
+            });
+        }
+    }
+
+    function formatBody(formBody) {
+        formBody.extras = [];
+        if (extraFields.length > 0) {
+            for (let i = 0; i < extraFields.length; i++) {
+                const guest = {};
+                for (const field of fields) {
+                    guest[field.id] = formBody[field.id + i];
+                    delete formBody[field.id + i];
+                }
+                formBody.extras.push(guest);
+            }
+        }
+        return formBody;
+    }
 
     useEffect(() => {
-        let inputFields = fields.filter(field => field.type !== "title");
-        setSubmitEnabled(inputFields.length === Object.keys(formBody).length);
-    }, [formBody, fields]);
+        const inputFieldsLength = fields.filter(
+            (field) => field.type !== "title"
+        ).length;
+        let extraFieldsLength = 0;
+        extraFields.forEach((extraField) =>
+            extraField.forEach(() => extraFieldsLength++)
+        );
+        setSubmitEnabled(
+            inputFieldsLength + extraFieldsLength ===
+                Object.keys(formBody).length
+        );
+    }, [formBody, fields, extraFields]);
 
     return (
-        <form className={styles.formWrapper} onSubmit={event => {event.preventDefault(); onSubmit(formBody)}}>
-            {fields.map(formFields => {
-                switch (formFields.type) {
-                    case "title":
-                        return (<div key={formFields.title}>
-                            <h2>{formFields.title}</h2>
-                            <p>{formFields.text}</p>
-                        </div>);
-                    case "text":
-                        return (
-                        <InputText key={formFields.id}
-                            formFields={formFields}
-                            formBody={formBody}
-                            setFormBody={setFormBody}
-                        />)
-                    case "number":
-                        return (
-                        <InputNumber key={formFields.id}
-                            formFields={formFields}
-                            formBody={formBody}
-                            setFormBody={setFormBody}
-                        />)
-                    case "customDate":
-                        return (
-                        <InputDate key={formFields.id}
-                            formFields={formFields}
-                            dateFormat={formFields.dateFormat}
-                            id={formFields.id}
-                            formBody={formBody}
-                            setFormBody={setFormBody}
-                        />)
-                    case "tel":
-                        return (
-                        <InputTel key={formFields.id}
-                            formFields={formFields}
-                            formBody={formBody}
-                            setFormBody={setFormBody}
-                        />)
-                    case "password":
-                        return <InputPassword key={formFields.id}
-                            formFields={formFields}
-                            formBody={formBody}
-                            setFormBody={setFormBody}
-                        />
-                    case "mail":
-                        return <InputMail key={formFields.id}
-                            formFields={formFields}
-                            formBody={formBody}
-                            setFormBody={setFormBody}
-                        />
-                    case "radio":
-                        return <InputRadio key={formFields.id}
-                            formFields={formFields}
-                            formBody={formBody}
-                            setFormBody={setFormBody}
-                        />
-                
-                    default:
-                        return <></>;
-                }
+        <form
+            className={styles.formWrapper}
+            onSubmit={(event) => {
+                event.preventDefault();
+                onSubmit(formatBody(formBody));
+            }}
+        >
+            {fields.map((formFields, i) => {
+                return (
+                    <FormField
+                        key={i}
+                        formFields={formFields}
+                        formBody={formBody}
+                        setFormBody={setFormBody}
+                    />
+                );
             })}
-            <input type="submit" value="Submit" disabled={!submitEnabled}/>
-            <h2>Antes de poner tus extras, <b onClick={() => setShowList(!showList)}>mirate la lista de invitades</b></h2>
-            {showList && <ul>
-                {guests.map((guest, i) => <li key={i}>{guest}</li>)}
-            </ul>}
+            <button className={styles.addGuest} onClick={(e) => addExtra(e)}>
+                Agregar acompañante
+            </button>
+            {extraFields?.length > 0 && (
+                <>
+                    <h2>Acompañantes</h2>
+                    {extraFields.map((extraField, index) => {
+                        return (
+                            <div key={index} className={styles.extraGuestForm}>
+                                {extraField.map((formFields, i) => {
+                                    if (!formFields.id.includes(index))
+                                        updateFieldId(formFields, index);
+                                    return (
+                                        <FormField
+                                            key={i}
+                                            formFields={formFields}
+                                            formBody={formBody}
+                                            setFormBody={setFormBody}
+                                        />
+                                    );
+                                })}
+                            </div>
+                        );
+                    })}
+                    <button
+                        className={styles.addGuest}
+                        onClick={(e) => removeExtra(e)}
+                    >
+                        Quitar acompañante
+                    </button>
+                </>
+            )}
+            <input type="submit" value="Submit" disabled={!submitEnabled} />
         </form>
-    )
-}
+    );
+};
 
 export default Form;
