@@ -3,10 +3,14 @@
     inset: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 5px;
-    align-items: center;
-    padding: 10px 0;
+    padding: {
+        left: 15px;
+        right: 0;
+        top: 15%;
+        bottom: 10px;
+    }
     background-color: #1f1834;
     z-index: 1;
     color: white;
@@ -18,8 +22,19 @@
     }
     overflow: auto;
 
+    button {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+    }
+
     .guestBlock {
-        border: 1px white solid;
-        padding: 10px;
+        border-radius: 15px;
+        padding: 5px 20px;
+        background-color: #34303e;
+
+        p {
+            margin: 0;
+        }
     }
 }

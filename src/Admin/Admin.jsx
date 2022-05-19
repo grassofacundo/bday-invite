@@ -1,51 +1,76 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { FirebaseService } from "../Services/FirebaseService";
 import styles from "./Admin.module.scss";
 
 const Admin = ({ closeAdmin }) => {
     const [InvitedUsers, setInvitedUsers] = useState(null);
+    const numbers = useRef({
+        total: 0,
+        extras: 0,
+        vegans: 0,
+        vegetarian: 0,
+    });
 
     useEffect(() => {
         async function getInvitedUsers() {
             const invitedUsers = await FirebaseService.getInvitedUsers();
             const invited = [];
             invitedUsers.forEach((u) => invited.push(u.data()));
+            invited.forEach((guest) => {
+                numbers.current.total++;
+                if (guest.isVegano) numbers.current.vegans++;
+                if (guest.isVegetariano) numbers.current.vegetarian++;
+                guest.extras.forEach((extra) => {
+                    numbers.current.extras++;
+                    if (extra.vegeta === "vegetaYes") numbers.current.vegans++;
+                    if (extra.vegetar === "vegetarYes")
+                        numbers.current.vegetarian++;
+                });
+            });
             setInvitedUsers(invited);
         }
 
         getInvitedUsers();
     }, []);
     return (
-        <div className={styles.adminWrapper}>
+        <main className={styles.adminWrapper}>
             <button onClick={closeAdmin}>Close admin</button>
+            <section className={styles.numberPanel}>
+                <p>{`Confirmadxs totales: ${
+                    numbers.current.total + numbers.current.extras
+                }`}</p>
+                <p>{`Acompañantes: ${numbers.current.extras} ($${
+                    numbers.current.extras * 1500
+                })`}</p>
+                <p>{`Veganxs: ${numbers.current.vegans}`}</p>
+                <p>{`Vegetarianxs: ${numbers.current.vegetarian}`}</p>
+            </section>
             {!InvitedUsers && <p>Cargando...</p>}
             {InvitedUsers &&
                 InvitedUsers.length > 0 &&
                 Object.values(InvitedUsers).map((user) => (
-                    <div className={styles.guestBlock}>
-                        <h3>{`${user.firstName} ${user.last}`}</h3>
+                    <section className={styles.guestBlock}>
+                        <p>{`${user.firstName} ${user.last}`}</p>
                         {user.isVegano && <p>Es veganx</p>}
                         {user.isVegetariano && <p>Es vegetarianx</p>}
                         {user.extras.length > 0 && (
                             <ul>
                                 {user.extras.map((extra) => (
-                                    <li>{`${extra.name} ${
-                                        extra.lastName
-                                    }. Veganx: ${
-                                        extra.vegeta === "vegetarNo"
-                                            ? "Sí"
-                                            : "No"
-                                    }, Vegetarianx: ${
-                                        extra.vegetar === "vegetarYes"
-                                            ? "Sí"
-                                            : "No"
-                                    }`}</li>
+                                    <li>
+                                        <p>{`${extra.name} ${extra.lastName}`}</p>
+                                        {extra.vegeta === "vegetaYes" && (
+                                            <p>Es veganx</p>
+                                        )}
+                                        {extra.vegetar === "vegetarYes" && (
+                                            <p>Es vegetarianx</p>
+                                        )}
+                                    </li>
                                 ))}
                             </ul>
                         )}
-                    </div>
+                    </section>
                 ))}
-        </div>
+        </main>
     );
 };
 
