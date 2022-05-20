@@ -35,28 +35,30 @@ const Admin = ({ closeAdmin }) => {
     return (
         <main className={styles.adminWrapper}>
             <button onClick={closeAdmin}>Close admin</button>
-            <section className={styles.numberPanel}>
-                <p>{`Confirmadxs totales: ${
-                    numbers.current.total + numbers.current.extras
-                }`}</p>
-                <p>{`Acompañantes: ${numbers.current.extras} ($${
-                    numbers.current.extras * 1500
-                })`}</p>
-                <p>{`Veganxs: ${numbers.current.vegans}`}</p>
-                <p>{`Vegetarianxs: ${numbers.current.vegetarian}`}</p>
-            </section>
             {!InvitedUsers && <p>Cargando...</p>}
+            {InvitedUsers && InvitedUsers.length > 0 && (
+                <section className={styles.numberPanel}>
+                    <p>{`Confirmadxs totales: ${
+                        numbers.current.total + numbers.current.extras
+                    }`}</p>
+                    <p>{`Acompañantes: ${numbers.current.extras} ($${
+                        numbers.current.extras * 1500
+                    })`}</p>
+                    <p>{`Veganxs: ${numbers.current.vegans}`}</p>
+                    <p>{`Vegetarianxs: ${numbers.current.vegetarian}`}</p>
+                </section>
+            )}
             {InvitedUsers &&
                 InvitedUsers.length > 0 &&
-                Object.values(InvitedUsers).map((user) => (
-                    <section className={styles.guestBlock}>
+                Object.values(InvitedUsers).map((user, i) => (
+                    <section key={i} className={styles.guestBlock}>
                         <p>{`${user.firstName} ${user.last}`}</p>
                         {user.isVegano && <p>Es veganx</p>}
                         {user.isVegetariano && <p>Es vegetarianx</p>}
                         {user.extras.length > 0 && (
                             <ul>
-                                {user.extras.map((extra) => (
-                                    <li>
+                                {user.extras.map((extra, i) => (
+                                    <li key={i}>
                                         <p>{`${extra.name} ${extra.lastName}`}</p>
                                         {extra.vegeta === "vegetaYes" && (
                                             <p>Es veganx</p>

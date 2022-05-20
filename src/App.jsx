@@ -14,10 +14,13 @@ const photos = [
     `${process.env.PUBLIC_URL}/assets/img7`,
 ];
 
+const touchduration = 3000; //length of time we want the user to touch before we do something
+
 function App() {
     const [currentPic, setCurrentPic] = useState(0);
     const [adminOpen, setAdminOpen] = useState(false);
     const keysPressed = useRef({ ctr: false, d: false });
+    const timer = useRef(0);
 
     function changePic(direction) {
         const isNext = direction > 0;
@@ -36,6 +39,7 @@ function App() {
     const extras = localStorage.getItem("extras");
 
     useEffect(() => {
+        //Keyboard events
         document.addEventListener("keydown", (event) => {
             if (event.code === "ControlLeft") keysPressed.current.ctr = true;
             if (event.code === "KeyD") keysPressed.current.d = true;
@@ -50,6 +54,34 @@ function App() {
             keysPressed.current.ctr = false;
             keysPressed.current.d = false;
         });
+
+        //Touch events
+        function touchstart() {
+            console.log("touch start");
+            if (!timer.current) {
+                console.log("setting timer");
+                timer.current = setTimeout(() => {
+                    console.log("Opening admin");
+                    timer.current = null;
+                    setAdminOpen(true);
+                }, touchduration);
+            }
+        }
+
+        function touchend() {
+            console.log("touch end");
+            //stops short touches from firing the event
+            if (timer.current) {
+                console.log("Removing timer");
+                clearTimeout(timer.current);
+                timer.current = null;
+            }
+        }
+
+        window.addEventListener("touchstart", touchstart, false);
+        window.addEventListener("touchmove", touchend, false);
+        window.addEventListener("touchend", touchend, false);
+        window.addEventListener("contextmenu", (e) => e.preventDefault());
     }, []);
 
     return (
