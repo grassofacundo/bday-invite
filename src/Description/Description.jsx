@@ -23,7 +23,7 @@ function Description({ index, userInfoProp }) {
             case 1:
                 return (
                     <p>
-                        <b>¿Cuándo?</b> <br /> Sábado 11/6 a las 21:30 hs
+                        <b>¿Cuándo?</b> <br /> Sábado 11/6 a las 21:00 hs
                     </p>
                 );
             case 2:
