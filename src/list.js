@@ -27,11 +27,12 @@ export const guests = [
     "Omar",
     "Celina",
     "Betty",
+    "Mabel",
     "Mami",
     "Papi",
     "Naara",
     "Lucho",
     "Emi",
     "Juan",
-    "Bianca",
+    "Bianca"
 ];
