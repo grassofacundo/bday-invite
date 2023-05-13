@@ -11,7 +11,6 @@ const photos = [
     `${process.env.PUBLIC_URL}/assets/img4`,
     `${process.env.PUBLIC_URL}/assets/img5`,
     `${process.env.PUBLIC_URL}/assets/img6`,
-    `${process.env.PUBLIC_URL}/assets/img7`,
 ];
 
 const touchduration = 3000; //length of time we want the user to touch before we do something
@@ -57,11 +56,8 @@ function App() {
 
         //Touch events
         function touchstart() {
-            console.log("touch start");
             if (!timer.current) {
-                console.log("setting timer");
                 timer.current = setTimeout(() => {
-                    console.log("Opening admin");
                     timer.current = null;
                     setAdminOpen(true);
                 }, touchduration);
@@ -69,10 +65,8 @@ function App() {
         }
 
         function touchend() {
-            console.log("touch end");
             //stops short touches from firing the event
             if (timer.current) {
-                console.log("Removing timer");
                 clearTimeout(timer.current);
                 timer.current = null;
             }
@@ -103,8 +97,8 @@ function App() {
                         ))}
                     </div>
                     <div className={styles.buttonContainer}>
-                        <button onClick={() => changePic(-1)}>Anterior</button>
-                        <button onClick={() => changePic(+1)}>Siguiente</button>
+                        <button onClick={() => changePic(-1)}>Prev</button>
+                        <button onClick={() => changePic(+1)}>Next</button>
                     </div>
                 </>
             )}

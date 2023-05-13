@@ -1,21 +1,21 @@
 export const formFields = [
-    { type: "text", id: "name", label: "Nombre", placeholder: "Ej. Juan" },
+    { type: "text", id: "name", label: "Name", placeholder: "Ex. John" },
     {
         type: "text",
         id: "lastName",
-        label: "Apellido",
-        placeholder: "Ej. Perez",
+        label: "Last name",
+        placeholder: "Ex. William",
     },
     {
         type: "radio",
         id: "vegeta",
-        label: "Menú vegano?",
+        label: "Needs vegan menu?",
         radioElem: [
             {
                 id: "vegetaYes",
                 name: "vegeta",
                 value: "vegetaYes",
-                label: "Sí",
+                label: "Yes",
             },
             { id: "vegetaNo", name: "vegeta", value: "vegetaNo", label: "No" },
         ],
@@ -23,13 +23,13 @@ export const formFields = [
     {
         type: "radio",
         id: "vegetar",
-        label: "Menú vegetariano?",
+        label: "Needs vegetarian menu?",
         radioElem: [
             {
                 id: "vegetarYes",
                 name: "vegetar",
                 value: "vegetarYes",
-                label: "Sí",
+                label: "Yes",
             },
             {
                 id: "vegetarNo",

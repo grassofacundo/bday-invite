@@ -16,74 +16,66 @@ function Description({ index, userInfoProp }) {
                 return (
                     <>
                         <p>
-                            ¡Vení a festejar conmigo <br /> <b>Mis 30!</b>
+                            Hey mate! This is my <b>birthday invite</b>!
                         </p>
                     </>
                 );
             case 1:
                 return (
                     <p>
-                        <b>¿Cuándo?</b> <br /> Sábado 11/6 a las 21:00 hs
+                        <b>¿When?</b> <br /> Next week at 5PM
                     </p>
                 );
             case 2:
                 return (
                     <p>
-                        <b>¿Dónde?</b>
-                        <br />
-                        Club{" "}
+                        <b>¿Where?</b>
+                        <br />I decided to celebrate it in a golf club: the{" "}
                         <a
-                            href="https://goo.gl/maps/iDkuUCRYv9CXPGBU7"
+                            href="https://goo.gl/maps/2TmHRoA2qWE2dgS77"
                             target="_blank"
                             rel="noreferrer"
                         >
-                            Bochas América
+                            Comahue Golf Club
                         </a>{" "}
-                        - Biedma 517 <br />(
-                        <small>entre Rosas y Primero de Mayo</small>)
+                        (<small>Argentina</small>)
                     </p>
                 );
             case 3:
                 return (
                     <p>
-                        <b>¿Comida?</b> <br />
-                        Mucha! más bebida para la cena, postrecito y cositas
-                        dulces 😋
-                    </p>
-                );
-            case 4:
-                return (
-                    <p>
-                        Si te querés embriagar,
-                        <br /> podés comprar más bebida en el lugar.
-                    </p>
-                );
-            case 5:
-                return (
-                    <p>
-                        Si estás{" "}
+                        The space is limited though, so I only invited people
+                        from{" "}
                         <span
                             onClick={() => setShowList((showList) => !showList)}
                         >
-                            en esta lista
+                            this list
                         </span>{" "}
-                        te invito yo 😉. Amigues, parejas y acompañantes son
-                        bienvenides pagando su tarjeta (
-                        <small>$1500 por adulte</small>)
+                        , click on it to see if your name is in there
                     </p>
                 );
-            case 6:
+            case 4:
                 return !Object.values(userInfo).every(
                     (x) => x !== null && x !== undefined
                 ) ? (
                     <p>
-                        Para anotarte, hacé{" "}
-                        <span onClick={() => setShowForm(true)}>click acá</span>
-                        <br />
-                        Fecha límite para anotarse <b>lunes 6/6</b>
+                        <b>Let me know if you are coming!</b> Please, write your
+                        name and the name of any other friend or family you
+                        wanna bring{" "}
+                        <span onClick={() => setShowForm(true)}>
+                            in this form
+                        </span>
+                        . They are all invited!
                     </p>
                 ) : (
                     getPostMessage(userInfo)
+                );
+            case 5:
+                return (
+                    <p>
+                        For educational purposes, you can press Ctrl + D or
+                        touch the screen for 3 seconds to open the admin panel
+                    </p>
                 );
             default:
                 return "Venite!";
@@ -99,7 +91,11 @@ function Description({ index, userInfoProp }) {
         }
         //const money = extras * 1500;
         return (
-            <p>{extras > 0 ? "Lxs espero!" : `Te espero ${userInfo.name}!`}</p>
+            <p>
+                {extras > 0
+                    ? "See you all soon!"
+                    : `See you soon ${userInfo.name}!`}
+            </p>
         );
     }
 

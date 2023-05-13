@@ -81,11 +81,11 @@ const Form = ({ fields, onSubmit }) => {
                 );
             })}
             <button className={styles.addGuest} onClick={(e) => addExtra(e)}>
-                Agregar acompañante
+                Add companion
             </button>
             {extraFields?.length > 0 && (
                 <>
-                    <h2>Acompañantes</h2>
+                    <h2>Companions</h2>
                     {extraFields.map((extraField, index) => {
                         return (
                             <div key={index} className={styles.extraGuestForm}>
@@ -108,7 +108,7 @@ const Form = ({ fields, onSubmit }) => {
                         className={styles.addGuest}
                         onClick={(e) => removeExtra(e)}
                     >
-                        Quitar acompañante
+                        Remove companion
                     </button>
                 </>
             )}

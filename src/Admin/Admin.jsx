@@ -35,17 +35,15 @@ const Admin = ({ closeAdmin }) => {
     return (
         <main className={styles.adminWrapper}>
             <button onClick={closeAdmin}>Close admin</button>
-            {!InvitedUsers && <p>Cargando...</p>}
+            {!InvitedUsers && <p>Loading...</p>}
             {InvitedUsers && InvitedUsers.length > 0 && (
                 <section className={styles.numberPanel}>
-                    <p>{`Confirmadxs totales: ${
+                    <p>{`Total confirmed: ${
                         numbers.current.total + numbers.current.extras
                     }`}</p>
-                    <p>{`Acompañantes: ${numbers.current.extras} ($${
-                        numbers.current.extras * 1500
-                    })`}</p>
-                    <p>{`Veganxs: ${numbers.current.vegans}`}</p>
-                    <p>{`Vegetarianxs: ${numbers.current.vegetarian}`}</p>
+                    <p>{`Companions: ${numbers.current.extras}`}</p>
+                    <p>{`Vegans: ${numbers.current.vegans}`}</p>
+                    <p>{`Vegetarians: ${numbers.current.vegetarian}`}</p>
                 </section>
             )}
             {InvitedUsers &&
@@ -53,18 +51,18 @@ const Admin = ({ closeAdmin }) => {
                 Object.values(InvitedUsers).map((user, i) => (
                     <section key={i} className={styles.guestBlock}>
                         <p>{`${user.firstName} ${user.last}`}</p>
-                        {user.isVegano && <p>Es veganx</p>}
-                        {user.isVegetariano && <p>Es vegetarianx</p>}
+                        {user.isVegano && <p>Veganx</p>}
+                        {user.isVegetariano && <p>Vegetarianx</p>}
                         {user.extras.length > 0 && (
                             <ul>
                                 {user.extras.map((extra, i) => (
                                     <li key={i}>
                                         <p>{`${extra.name} ${extra.lastName}`}</p>
                                         {extra.vegeta === "vegetaYes" && (
-                                            <p>Es veganx</p>
+                                            <p>Vegan</p>
                                         )}
                                         {extra.vegetar === "vegetarYes" && (
-                                            <p>Es vegetarianx</p>
+                                            <p>Vegetarian</p>
                                         )}
                                     </li>
                                 ))}
