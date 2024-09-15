@@ -30,6 +30,8 @@ function AssetView({ src, currentAsset, index }) {
             muted
             loop
             playsInline
+            controlsList="nofullscreen noremoteplayback"
+            disablePictureInPicture
             style={{
                 display: !load && currentAsset === index ? "block" : "none",
             }}
