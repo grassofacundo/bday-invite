@@ -2,7 +2,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     height: 100%;
     width: 100%;
@@ -13,14 +13,17 @@
 .imageCarousel {
     position: relative;
     display: flex;
-    align-items: baseline;
+    //align-items: baseline;
     width: 100%;
-    max-width: 500px;
+    height: fit-content;
+    max-height: 100%;
     overflow: hidden;
 
-    img {
+    img,
+    video {
         width: 100%;
         object-fit: contain;
+        aspect-ratio: 4/5;
     }
 }
 
@@ -29,13 +32,13 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    bottom: 20px;
+    bottom: 70px;
 
     button {
         border: 0;
         width: 100px;
         height: 40px;
-        background-color: #c10fc1;
+        background-color: var(--secondary-color);
         color: white;
         font-family: "Nunito", serif;
         font-size: 16px;

@@ -1,6 +1,5 @@
-import React from "react";
-import { guests } from "../list";
 import styles from "./GuestList.module.scss";
+import { guests } from "../content";
 
 const GuestList = () => (
     <ul className={styles.guestListContainer}>

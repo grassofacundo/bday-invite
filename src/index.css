@@ -1,8 +1,12 @@
 html,
 body,
 #root {
+    --main-color: #7b0046;
+    --secondary-color: #c10fc1;
+    --text-color: #fff;
+
     height: 100%;
     width: 100%;
     margin: 0;
-    background-color: #7b0046;
+    background-color: var(--main-color);
 }

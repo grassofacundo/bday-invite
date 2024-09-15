@@ -1,37 +1,48 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, createContext } from "react";
 import Admin from "./Admin/Admin";
 import styles from "./App.module.scss";
 import Description from "./Description/Description";
-import Image from "./Image/Image";
+import AssetView from "./assetView/AssetView";
+import { assets } from "./content";
+import LanguagePicker from "./LanguagePicker/LanguagePicker";
 
-const photos = [
-    `${process.env.PUBLIC_URL}/assets/img1`,
-    `${process.env.PUBLIC_URL}/assets/img2`,
-    `${process.env.PUBLIC_URL}/assets/img3`,
-    `${process.env.PUBLIC_URL}/assets/img4`,
-    `${process.env.PUBLIC_URL}/assets/img5`,
-    `${process.env.PUBLIC_URL}/assets/img6`,
-];
-
-const touchduration = 3000; //length of time we want the user to touch before we do something
+const touchDuration = 3000; //length of time we want the user to touch before we do something
+export const LocalizationContext = createContext(null);
 
 function App() {
-    const [currentPic, setCurrentPic] = useState(0);
+    const [currentAsset, setCurrentAsset] = useState(0);
     const [adminOpen, setAdminOpen] = useState(false);
+    const [userLanguage, setUserLanguage] = useState(() => getSystemLanguage());
     const keysPressed = useRef({ ctr: false, d: false });
     const timer = useRef(0);
 
     function changePic(direction) {
         const isNext = direction > 0;
-        setCurrentPic(
+        setCurrentAsset(
             isNext
-                ? currentPic + 1 > photos.length - 1
+                ? currentAsset + 1 > assets.length - 1
                     ? 0
-                    : currentPic + 1
-                : currentPic - 1 < 0
-                ? photos.length - 1
-                : currentPic - 1
+                    : currentAsset + 1
+                : currentAsset - 1 < 0
+                ? assets.length - 1
+                : currentAsset - 1
         );
+    }
+
+    function getSystemLanguage() {
+        let language = "en";
+
+        const navLang = navigator.language;
+        try {
+            if (navLang) {
+                const langParts = navLang.split("-");
+                const languageWithoutRegion = langParts[0];
+                language = languageWithoutRegion;
+            }
+        } catch (error) {
+            language = "en";
+        }
+        return language;
     }
 
     const name = localStorage.getItem("userName");
@@ -60,7 +71,7 @@ function App() {
                 timer.current = setTimeout(() => {
                     timer.current = null;
                     setAdminOpen(true);
-                }, touchduration);
+                }, touchDuration);
             }
         }
 
@@ -79,31 +90,40 @@ function App() {
     }, []);
 
     return (
-        <div className={styles.mainWrapper}>
-            {!adminOpen && (
-                <>
-                    <Description
-                        index={currentPic}
-                        userInfoProp={{ name, extras }}
-                    />
-                    <div className={styles.imageCarousel}>
-                        {photos.map((photo, i) => (
-                            <Image
-                                key={i}
-                                src={photo}
-                                currentPic={currentPic}
-                                index={i}
-                            />
-                        ))}
-                    </div>
-                    <div className={styles.buttonContainer}>
-                        <button onClick={() => changePic(-1)}>Prev</button>
-                        <button onClick={() => changePic(+1)}>Next</button>
-                    </div>
-                </>
-            )}
-            {adminOpen && <Admin closeAdmin={() => setAdminOpen(false)} />}
-        </div>
+        <LocalizationContext.Provider value={userLanguage}>
+            <div className={styles.mainWrapper}>
+                {!adminOpen && (
+                    <>
+                        <Description
+                            index={currentAsset}
+                            userInfoProp={{ name, extras }}
+                        />
+                        <div className={styles.imageCarousel}>
+                            <LanguagePicker
+                                changeLang={setUserLanguage}
+                            ></LanguagePicker>
+                            {assets.map((asset, i) => (
+                                <AssetView
+                                    key={i}
+                                    src={asset}
+                                    currentAsset={currentAsset}
+                                    index={i}
+                                />
+                            ))}
+                            <div className={styles.buttonContainer}>
+                                <button onClick={() => changePic(-1)}>
+                                    Prev
+                                </button>
+                                <button onClick={() => changePic(+1)}>
+                                    Next
+                                </button>
+                            </div>
+                        </div>
+                    </>
+                )}
+                {adminOpen && <Admin closeAdmin={() => setAdminOpen(false)} />}
+            </div>
+        </LocalizationContext.Provider>
     );
 }
 
