@@ -29,6 +29,7 @@ function AssetView({ src, currentAsset, index }) {
             controls
             muted
             loop
+            playsInline
             style={{
                 display: !load && currentAsset === index ? "block" : "none",
             }}
