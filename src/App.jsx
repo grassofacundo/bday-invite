@@ -99,9 +99,9 @@ function App() {
                             userInfoProp={{ name, extras }}
                         />
                         <div className={styles.imageCarousel}>
-                            {/* <LanguagePicker
+                            <LanguagePicker
                                 changeLang={setUserLanguage}
-                            ></LanguagePicker> */}
+                            ></LanguagePicker>
                             {assets.map((asset, i) => (
                                 <AssetView
                                     key={i}
