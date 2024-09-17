@@ -3,7 +3,7 @@ import Admin from "./Admin/Admin";
 import styles from "./App.module.scss";
 import Description from "./Description/Description";
 import AssetView from "./assetView/AssetView";
-import { assets } from "./content";
+import { assets, texts } from "./content";
 import LanguagePicker from "./LanguagePicker/LanguagePicker";
 
 const touchDuration = 3000; //length of time we want the user to touch before we do something
@@ -99,9 +99,9 @@ function App() {
                             userInfoProp={{ name, extras }}
                         />
                         <div className={styles.imageCarousel}>
-                            <LanguagePicker
+                            {/* <LanguagePicker
                                 changeLang={setUserLanguage}
-                            ></LanguagePicker>
+                            ></LanguagePicker> */}
                             {assets.map((asset, i) => (
                                 <AssetView
                                     key={i}
@@ -112,10 +112,10 @@ function App() {
                             ))}
                             <div className={styles.buttonContainer}>
                                 <button onClick={() => changePic(-1)}>
-                                    Prev
+                                    {texts.buttonBack[userLanguage]}
                                 </button>
                                 <button onClick={() => changePic(+1)}>
-                                    Next
+                                    {texts.buttonForward[userLanguage]}
                                 </button>
                             </div>
                         </div>

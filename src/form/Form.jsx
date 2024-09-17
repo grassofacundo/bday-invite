@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import styles from "./Form.module.scss";
 import FormField from "./formField/FormField";
+import { LocalizationContext } from "../App";
+import { texts } from "../content";
 
 const Form = ({ fields, onSubmit }) => {
+    const currentLanguage = useContext(LocalizationContext);
+
     const [formBody, setFormBody] = useState({});
     const [submitEnabled, setSubmitEnabled] = useState(false);
     const [extraFields, setExtraFields] = useState([]);
@@ -81,11 +85,11 @@ const Form = ({ fields, onSubmit }) => {
                 );
             })}
             <button className={styles.addGuest} onClick={(e) => addExtra(e)}>
-                Add companion
+                {texts.companion.buttonAdd[currentLanguage]}
             </button>
             {extraFields?.length > 0 && (
                 <>
-                    <h2>Companions</h2>
+                    <h2>{texts.companion.title[currentLanguage]}</h2>
                     {extraFields.map((extraField, index) => {
                         return (
                             <div key={index} className={styles.extraGuestForm}>
@@ -108,11 +112,15 @@ const Form = ({ fields, onSubmit }) => {
                         className={styles.addGuest}
                         onClick={(e) => removeExtra(e)}
                     >
-                        Remove companion
+                        {texts.companion.buttonRemove[currentLanguage]}
                     </button>
                 </>
             )}
-            <input type="submit" value="Submit" disabled={!submitEnabled} />
+            <input
+                type="submit"
+                value={texts.submit[currentLanguage]}
+                disabled={!submitEnabled}
+            />
         </form>
     );
 };

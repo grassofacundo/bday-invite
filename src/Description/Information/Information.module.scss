@@ -6,10 +6,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 110px;
+    flex-grow: 1;
+    max-height: 150px;
     width: calc(100% - var(--wrapper-margin) * 2 - var(--wrapper-border) * 2);
     margin: var(--wrapper-margin);
-    border: var(--wrapper-border) solid #c10fc1;
+    border: var(--wrapper-border) solid var(--secondary-color);
 
     h1,
     p {

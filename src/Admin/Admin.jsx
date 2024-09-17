@@ -18,10 +18,17 @@ const Admin = ({ closeAdmin }) => {
             invitedUsers.forEach((u) => invited.push(u.data()));
             invited.forEach((guest) => {
                 numbers.current.total++;
+                if (guest.isVegano && guest.isVegetariano)
+                    guest.isVegetariano = false;
                 if (guest.isVegano) numbers.current.vegans++;
                 if (guest.isVegetariano) numbers.current.vegetarian++;
                 guest.extras.forEach((extra) => {
                     numbers.current.extras++;
+                    if (
+                        extra.vegeta === "vegetaYes" &&
+                        extra.vegetar === "vegetarYes"
+                    )
+                        extra.vegetar = "vegetarNo";
                     if (extra.vegeta === "vegetaYes") numbers.current.vegans++;
                     if (extra.vegetar === "vegetarYes")
                         numbers.current.vegetarian++;

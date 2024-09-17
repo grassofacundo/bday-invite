@@ -27,8 +27,8 @@ const Information = ({
         return (
             <p>
                 {extras > 0
-                    ? texts.guestConfirmed[currentLanguage].one
-                    : `${texts.guestConfirmed[currentLanguage].many} ${userInfo.name}`}
+                    ? texts.guestConfirmed[currentLanguage].many
+                    : `${texts.guestConfirmed[currentLanguage].one} ${userInfo.name}`}
             </p>
         );
     }

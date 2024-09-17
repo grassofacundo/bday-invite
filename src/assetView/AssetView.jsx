@@ -5,8 +5,9 @@ function AssetView({ src, currentAsset, index }) {
     const [load, setLoad] = useState(false);
 
     const isImage = src.includes("img");
+    const isGif = src.includes("gif");
 
-    return isImage ? (
+    return isImage || isGif ? (
         <>
             <img
                 src={`${src}.jpg`}
@@ -16,7 +17,7 @@ function AssetView({ src, currentAsset, index }) {
                 }}
             />
             <img
-                src={`${src}-hd.jpg`}
+                src={`${src}-hd.${isGif ? "gif" : "jpg"}`}
                 alt="Alguna imagen hd"
                 onLoad={() => setLoad(true)}
                 style={{
