@@ -1,0 +1,25 @@
+.listContainer {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    padding: 10px 0;
+    background-color: #1f1834;
+    z-index: 2;
+    color: white;
+    font-family: "Nunito", serif;
+    border: {
+        color: black;
+        style: solid;
+        width: 2px;
+    }
+    overflow: auto;
+    list-style-type: none;
+
+    li {
+        width: 100%;
+        text-align: center;
+    }
+}

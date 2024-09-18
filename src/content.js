@@ -228,6 +228,10 @@ export const texts = {
         en: "See form",
         es: "Ver formulario",
     },
+    formCompanion: {
+        en: "Add companion",
+        es: "Agregar invitado",
+    },
     companion: {
         title: {
             en: "Companions",
@@ -245,5 +249,15 @@ export const texts = {
     submit: {
         en: "Submit",
         es: "Guardar",
+    },
+
+    deadline: {
+        en: "The deadline to submit has reached 😭",
+        es: "Ya venció el plazo para anotarse 😭",
+    },
+
+    formError: {
+        en: "Ups, something failed. try to submit again or just get in touch with me",
+        es: "Ups, algo falló. Tratá de completar el formulario de vuelta o contactate conmigo directament",
     },
 };

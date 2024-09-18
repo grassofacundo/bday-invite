@@ -39,7 +39,16 @@ const Information = ({
     return (
         <div className={styles.descriptionWrapper}>
             {guestHasConfirmed() && hideContentAfterConfirm ? (
-                getPostMessage()
+                <>
+                    {getPostMessage()}
+                    {hasInvitationFormButton && (
+                        <div className={styles.buttonWrapper}>
+                            <button onClick={openForm}>
+                                {texts.formCompanion[currentLanguage]}
+                            </button>
+                        </div>
+                    )}
+                </>
             ) : (
                 <>
                     {title && (

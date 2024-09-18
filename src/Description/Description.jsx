@@ -1,32 +1,53 @@
 import { useState, useContext } from "react";
 import { FirebaseService } from "../Services/FirebaseService";
-import { config } from "../content";
+import { config, texts } from "../content";
 import List from "./List/List";
 import FormC from "./FormC/FormC";
 import Information from "./Information/Information";
 import { LocalizationContext } from "../App";
+import WhoAreYouScreen from "../WhoAreYouScreen/WhoAreYouScreen";
 
-function Description({ index, userInfoProp }) {
+function Description({ index }) {
     const currentLanguage = useContext(LocalizationContext);
 
     const [showForm, setShowForm] = useState(false);
     const [showList, setShowList] = useState(false);
-    const [userInfo, setUserInfo] = useState(userInfoProp);
+    const [showWhoAreYouScreen, setShowWhoAreYouScreen] = useState(false);
+    const [userInfo, setUserInfo] = useState(getUserInfo());
+    const [dbUserInfo, setDbUserInfo] = useState();
 
     const content = config[currentLanguage][index];
+
+    function getUserInfo() {
+        const name = localStorage.getItem("userName");
+        const extras = localStorage.getItem("extras");
+        return { name, extras };
+    }
 
     async function onSubmit(form) {
         const deadline = new Date("September 25, 2024");
         if (Date() >= deadline) {
-            alert("Ya venció el plazo para anotarse 😭");
+            alert(texts.deadline[currentLanguage]);
             window.location.reload();
         }
+        if (!form.name && form.extras?.length === 0) {
+            return;
+        }
+
+        if (!form.name) {
+            form.name = dbUserInfo.firstName;
+            form.lastName = dbUserInfo.last;
+            form.vegeta = dbUserInfo.isVegano ? "vegetaYes" : "vegetaNo";
+            form.vegetar = dbUserInfo.isVegetariano
+                ? "vegetarYes"
+                : "vegetarNo";
+            form.extras = [...form.extras, ...dbUserInfo.extras];
+        }
+
         const insertSuccess = await FirebaseService.insertInvite(form);
 
         if (!insertSuccess) {
-            alert(
-                "Ups, algo falló. Tratá de completar el formulario de vuelta o contactate conmigo directamente"
-            );
+            alert(texts.formError[currentLanguage]);
             window.location.reload();
         } else {
             localStorage.setItem("userName", form.name);
@@ -44,15 +65,42 @@ function Description({ index, userInfoProp }) {
         setShowList(false);
     }
 
+    function handleSetDbUserInfo(userData) {
+        setDbUserInfo(userData);
+        setShowWhoAreYouScreen(false);
+        setShowForm(true);
+    }
+
+    async function handleOpenForm() {
+        if (!userInfo.name) {
+            setShowForm(true);
+        } else {
+            setShowWhoAreYouScreen(true);
+        }
+    }
+
     return (
         <>
             <Information
                 {...content}
                 openList={() => setShowList(true)}
-                openForm={() => setShowForm(true)}
+                openForm={() => handleOpenForm()}
                 userInfo={userInfo}
             />
-            {showForm && <FormC onClose={closeForms} onSubmit={onSubmit} />}
+            {showForm && (
+                <FormC
+                    onClose={closeForms}
+                    onSubmit={onSubmit}
+                    userInfo={userInfo}
+                />
+            )}
+            {showWhoAreYouScreen && (
+                <WhoAreYouScreen
+                    userInfo={userInfo}
+                    closeScreen={() => setShowWhoAreYouScreen(false)}
+                    handleSetDbUserInfo={handleSetDbUserInfo}
+                />
+            )}
             {showList && <List closeForms={closeForms} />}
         </>
     );

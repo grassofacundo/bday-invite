@@ -30,7 +30,7 @@ export class FirebaseService {
                     firstName: form.name,
                     last: form.lastName,
                     isVegano: form.vegeta === "vegetaYes",
-                    isVegetariano: form.vegeta === "vegetarYes",
+                    isVegetariano: form.vegetar === "vegetarYes",
                     extras: form.extras,
                 }
             );

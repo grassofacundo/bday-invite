@@ -4,7 +4,7 @@ import Form from "../../form/Form";
 import styles from "../Description.module.scss";
 import { LocalizationContext } from "../../App";
 
-const FormC = ({ onClose, onSubmit }) => {
+const FormC = ({ onClose, onSubmit, userInfo }) => {
     const currentLanguage = useContext(LocalizationContext);
 
     return (
@@ -12,7 +12,11 @@ const FormC = ({ onClose, onSubmit }) => {
             <button className={styles.closeButton} onClick={() => onClose()}>
                 X
             </button>
-            <Form fields={formFields[currentLanguage]} onSubmit={onSubmit} />
+            <Form
+                fields={formFields[currentLanguage]}
+                onSubmit={onSubmit}
+                hideMainForm={!!userInfo.name}
+            />
         </>
     );
 };

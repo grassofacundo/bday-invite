@@ -35,7 +35,7 @@
     bottom: 65px;
 
     button {
-        border: 0;
+        border: 1px var(--secondary-color) solid;
         width: 100px;
         height: 40px;
         background-color: var(--main-color);

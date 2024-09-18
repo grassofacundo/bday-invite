@@ -45,9 +45,6 @@ function App() {
         return language;
     }
 
-    const name = localStorage.getItem("userName");
-    const extras = localStorage.getItem("extras");
-
     useEffect(() => {
         //Keyboard events
         document.addEventListener("keydown", (event) => {
@@ -94,10 +91,7 @@ function App() {
             <div className={styles.mainWrapper}>
                 {!adminOpen && (
                     <>
-                        <Description
-                            index={currentAsset}
-                            userInfoProp={{ name, extras }}
-                        />
+                        <Description index={currentAsset} />
                         <div className={styles.imageCarousel}>
                             <LanguagePicker
                                 changeLang={setUserLanguage}

@@ -4,7 +4,7 @@ import FormField from "./formField/FormField";
 import { LocalizationContext } from "../App";
 import { texts } from "../content";
 
-const Form = ({ fields, onSubmit }) => {
+const Form = ({ fields, onSubmit, hideMainForm }) => {
     const currentLanguage = useContext(LocalizationContext);
 
     const [formBody, setFormBody] = useState({});
@@ -13,14 +13,14 @@ const Form = ({ fields, onSubmit }) => {
 
     function addExtra(e) {
         e.preventDefault();
-        const extraFieldsClone = JSON.parse(JSON.stringify(extraFields));
-        extraFieldsClone.push(JSON.parse(JSON.stringify(fields)));
+        const extraFieldsClone = structuredClone(extraFields);
+        extraFieldsClone.push(structuredClone(fields));
         setExtraFields(extraFieldsClone);
     }
 
     function removeExtra(e) {
         e.preventDefault();
-        const extraFieldsClone = JSON.parse(JSON.stringify(extraFields));
+        const extraFieldsClone = structuredClone(extraFields);
         extraFieldsClone.pop();
         setExtraFields(extraFieldsClone);
     }
@@ -61,10 +61,11 @@ const Form = ({ fields, onSubmit }) => {
             extraField.forEach(() => extraFieldsLength++)
         );
         setSubmitEnabled(
-            inputFieldsLength + extraFieldsLength ===
-                Object.keys(formBody).length
+            hideMainForm ||
+                inputFieldsLength + extraFieldsLength ===
+                    Object.keys(formBody).length
         );
-    }, [formBody, fields, extraFields]);
+    }, [formBody, fields, extraFields, hideMainForm]);
 
     return (
         <form
@@ -74,16 +75,15 @@ const Form = ({ fields, onSubmit }) => {
                 onSubmit(formatBody(formBody));
             }}
         >
-            {fields.map((formFields, i) => {
-                return (
+            {!hideMainForm &&
+                fields.map((formFields, i) => (
                     <FormField
                         key={i}
                         formFields={formFields}
                         formBody={formBody}
                         setFormBody={setFormBody}
                     />
-                );
-            })}
+                ))}
             <button className={styles.addGuest} onClick={(e) => addExtra(e)}>
                 {texts.companion.buttonAdd[currentLanguage]}
             </button>
