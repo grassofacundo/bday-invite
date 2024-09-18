@@ -1,8 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FirebaseService } from "../Services/FirebaseService";
 import styles from "./WhoAreYouScreen.module.scss";
+import { LocalizationContext } from "../App";
+import { texts } from "../content";
 
 const WhoAreYouScreen = ({ userInfo, closeScreen, handleSetDbUserInfo }) => {
+    const currentLanguage = useContext(LocalizationContext);
+
     const [invitedUsers, setInvitedUsers] = useState();
 
     useEffect(() => {
@@ -29,7 +33,7 @@ const WhoAreYouScreen = ({ userInfo, closeScreen, handleSetDbUserInfo }) => {
             {!invitedUsers && <p>Loading...</p>}
             {invitedUsers && (
                 <div>
-                    <h2>Who are you?</h2>
+                    <h2>{texts.whoAreYou[currentLanguage]}</h2>
                     {invitedUsers &&
                         invitedUsers.map((invitedUser, i) => (
                             <button

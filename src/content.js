@@ -260,4 +260,9 @@ export const texts = {
         en: "Ups, something failed. try to submit again or just get in touch with me",
         es: "Ups, algo falló. Tratá de completar el formulario de vuelta o contactate conmigo directament",
     },
+
+    whoAreYou: {
+        en: "Who are you?",
+        es: "Quiés eres?",
+    },
 };
