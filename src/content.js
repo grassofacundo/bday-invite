@@ -6,20 +6,20 @@ export const config = {
         },
         {
             title: "When?",
-            text: "Thursday, 26 September, 6 PM",
+            text: "Thursday, 26 September. From 6 PM to infinity",
         },
         {
             title: "Where?",
-            text: "In a friend's house, at La Veleta",
+            text: "In my Tuluminati house",
             map: {
                 text: "See the map",
                 link: "https://maps.app.goo.gl/DSXAJwHV4qLi79kq7",
             },
         },
-        {
-            text: "I only invited specific people (the loved ones). Please, check the list if your name is in there",
-            hasListButton: true,
-        },
+        // {
+        //     text: "I only invited specific people (the loved ones). Please, check the list if your name is in there",
+        //     hasListButton: true,
+        // },
         {
             hideContentAfterConfirm: true,
             title: "Confirm your presence!",
@@ -28,7 +28,7 @@ export const config = {
         },
         {
             title: "What's the menu",
-            text: "The menu will be argentinian barbecue 🥩 and some empanadas 🥟",
+            text: "The menu will be tacos 🌮🇲🇽 and empanadas 🥟🇦🇷",
         },
         {
             title: "What do I bring?",
@@ -46,20 +46,20 @@ export const config = {
         },
         {
             title: "Cuándo?",
-            text: "El jueves 26 de septiembre, a las 18hs",
+            text: "El jueves 26 de septiembre Desde las 18hs hasta el infinito",
         },
         {
             title: "Adónde?",
-            text: "En la casa de una amiga, en La Veleta",
+            text: "En mi casa Tuliminati",
             map: {
                 text: "Aqui el mapa",
                 link: "https://maps.app.goo.gl/DSXAJwHV4qLi79kq7",
             },
         },
-        {
-            text: "El corazón es grande pero la casa no tanto, Así que sólo invité a la gente de la lista",
-            hasListButton: true,
-        },
+        // {
+        //     text: "El corazón es grande pero la casa no tanto, Así que sólo invité a la gente de la lista",
+        //     hasListButton: true,
+        // },
         {
             hideContentAfterConfirm: true,
             title: "Confirmá tu presencia!",
@@ -68,7 +68,7 @@ export const config = {
         },
         {
             title: "Qué se come?",
-            text: "El menú va a ser un asadazo 🥩 y algunas empanadas 🥟",
+            text: "El menú van a ser taquitos 🌮🇲🇽 y empanadas 🥟🇦🇷",
         },
         {
             title: "Qué llevo?",
@@ -86,10 +86,10 @@ export const assets = [
     `${process.env.PUBLIC_URL}/assets/img2`,
     `${process.env.PUBLIC_URL}/assets/img3`,
     `${process.env.PUBLIC_URL}/assets/gif4`,
-    `${process.env.PUBLIC_URL}/assets/gif5`,
-    `${process.env.PUBLIC_URL}/assets/video6`,
-    `${process.env.PUBLIC_URL}/assets/img7`,
-    `${process.env.PUBLIC_URL}/assets/gif8`,
+    `${process.env.PUBLIC_URL}/assets/video5`,
+    `${process.env.PUBLIC_URL}/assets/img6`,
+    `${process.env.PUBLIC_URL}/assets/gif7`,
+    //`${process.env.PUBLIC_URL}/assets/gif8`,
 ];
 
 export const formFields = {
